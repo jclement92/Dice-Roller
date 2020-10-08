@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/llDiceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/llDiceRoll">
+
+        <TextView
+            android:id="@+id/tvDice1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Player 1"
+            android:textSize="32sp"
+            android:layout_marginEnd="26dp" />
+
+        <TextView
+            android:id="@+id/tvDice2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Player 2"
+            android:textSize="32sp"
+            android:layout_marginStart="26dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llDiceRoll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="2"
+            android:textSize="32sp"
+            android:layout_marginEnd="64dp" />
+
+        <TextView
+            android:id="@+id/tvNumber2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="2"
+            android:textSize="32sp"
+            android:layout_marginStart="64dp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/rollBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/roll"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llDiceRoll" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
