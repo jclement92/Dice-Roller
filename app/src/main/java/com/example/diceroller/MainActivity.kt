@@ -6,7 +6,6 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    private val luckyNumber: Int = 7
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,35 +18,26 @@ class MainActivity : AppCompatActivity() {
 
     private fun rollDice() {
         // Create new Dice object with 12 sides and roll it
-        val dice = Dice(12)
-        val rollResult = dice.roll()
-        val rollResult2 = dice.roll()
+        val dice = Dice(6)
+        val diceRoll = dice.roll()
 
-        tvNumber.text = rollResult.toString()
-        tvNumber2.text = rollResult2.toString()
+        tvNumber.text = diceRoll.toString()
 
-        checkPlayerWin(rollResult, rollResult2)
+        checkPlayerWin(diceRoll)
     }
 
-    private fun checkPlayerWin(player1Roll: Int, player2Roll: Int) {
-
-        when (player1Roll) {
-            luckyNumber -> {
-                Toast.makeText(this, "Both players won!", Toast.LENGTH_SHORT).show()
-                disableButton()
-            }
+    private fun checkPlayerWin(playerRoll: Int, luckyNumber: Int = 4) {
+        when (playerRoll) {
+            luckyNumber -> Toast.makeText(this, "Player won!", Toast.LENGTH_SHORT).show()
+            1 -> Toast.makeText(this, "So sorry! You rolled a 1. Try again!", Toast.LENGTH_SHORT).show()
+            2 -> Toast.makeText(this, "Sadly, you rolled a 2. Try again!", Toast.LENGTH_SHORT).show()
+            3 -> Toast.makeText(this, "Unfortunately, you rolled a 3. Try again!", Toast.LENGTH_SHORT).show()
+            4 -> Toast.makeText(this, "No luck! You rolled a 4. Try again!", Toast.LENGTH_SHORT).show()
+            5 -> Toast.makeText(this, "Don't cry! You rolled a 5. Try again!", Toast.LENGTH_SHORT).show()
+            6 -> Toast.makeText(this, "Apologies! you rolled a 6. Try again!", Toast.LENGTH_SHORT).show()
         }
 
-        if (player1Roll == luckyNumber && player2Roll == luckyNumber) {
-            Toast.makeText(this, "Both players won!", Toast.LENGTH_SHORT).show()
-            disableButton()
-        } else if (player1Roll == luckyNumber) {
-            Toast.makeText(this, "Player 1 won!", Toast.LENGTH_SHORT).show()
-            disableButton()
-        } else if (player2Roll == luckyNumber) {
-            Toast.makeText(this, "Player 2 won!", Toast.LENGTH_SHORT).show()
-            disableButton()
-        }
+        if (playerRoll == luckyNumber) disableButton()
     }
 
     private fun disableButton() {
