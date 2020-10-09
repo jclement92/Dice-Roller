@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
         rollBtn.setOnClickListener {
             rollDice()
         }
+        rollDice()
     }
 
     private fun rollDice() {
@@ -21,9 +22,22 @@ class MainActivity : AppCompatActivity() {
         val dice = Dice(6)
         val diceRoll = dice.roll()
 
-        tvNumber.text = diceRoll.toString()
+        setDiceImage(diceRoll)
+        //checkPlayerWin(diceRoll)
+    }
 
-        checkPlayerWin(diceRoll)
+    private fun setDiceImage(playerRoll: Int) {
+        val drawableResource = when (playerRoll) {
+            1 -> R.drawable.dice_1
+            2 -> R.drawable.dice_2
+            3 -> R.drawable.dice_3
+            4 -> R.drawable.dice_4
+            5 -> R.drawable.dice_5
+            else -> R.drawable.dice_6
+        }
+        
+        diceImage.setImageResource(drawableResource)
+        diceImage.contentDescription = playerRoll.toString()
     }
 
     private fun checkPlayerWin(playerRoll: Int, luckyNumber: Int = 4) {
