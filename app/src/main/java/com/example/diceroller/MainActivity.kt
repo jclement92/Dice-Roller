@@ -6,6 +6,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    private var rolled = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,12 +23,25 @@ class MainActivity : AppCompatActivity() {
         val dice = Dice(6)
         val diceRoll = dice.roll()
 
-        setDiceImage(diceRoll)
-        //checkPlayerWin(diceRoll)
+        val dice2 = Dice(6)
+        val diceRoll2 = dice2.roll()
+
+        val drawableResource = setDiceImage(diceRoll)
+        val drawableResource2 = setDiceImage(diceRoll2)
+
+        diceImage.setImageResource(drawableResource)
+        diceImage.contentDescription = diceRoll.toString()
+
+        diceImage2.setImageResource(drawableResource2)
+        diceImage2.contentDescription = diceRoll2.toString()
+
+        if (rolled) checkPlayerWin(diceRoll, diceRoll2)
+
+        rolled = true
     }
 
-    private fun setDiceImage(playerRoll: Int) {
-        val drawableResource = when (playerRoll) {
+    private fun setDiceImage(playerRoll: Int): Int {
+        return when (playerRoll) {
             1 -> R.drawable.dice_1
             2 -> R.drawable.dice_2
             3 -> R.drawable.dice_3
@@ -35,23 +49,19 @@ class MainActivity : AppCompatActivity() {
             5 -> R.drawable.dice_5
             else -> R.drawable.dice_6
         }
-        
-        diceImage.setImageResource(drawableResource)
-        diceImage.contentDescription = playerRoll.toString()
     }
 
-    private fun checkPlayerWin(playerRoll: Int, luckyNumber: Int = 4) {
-        when (playerRoll) {
-            luckyNumber -> Toast.makeText(this, "Player won!", Toast.LENGTH_SHORT).show()
-            1 -> Toast.makeText(this, "So sorry! You rolled a 1. Try again!", Toast.LENGTH_SHORT).show()
-            2 -> Toast.makeText(this, "Sadly, you rolled a 2. Try again!", Toast.LENGTH_SHORT).show()
-            3 -> Toast.makeText(this, "Unfortunately, you rolled a 3. Try again!", Toast.LENGTH_SHORT).show()
-            4 -> Toast.makeText(this, "No luck! You rolled a 4. Try again!", Toast.LENGTH_SHORT).show()
-            5 -> Toast.makeText(this, "Don't cry! You rolled a 5. Try again!", Toast.LENGTH_SHORT).show()
-            6 -> Toast.makeText(this, "Apologies! you rolled a 6. Try again!", Toast.LENGTH_SHORT).show()
+    private fun checkPlayerWin(playerRoll: Int, playerRoll2: Int, luckyNumber: Int = 4) {
+        if (playerRoll == luckyNumber && playerRoll2 == luckyNumber) {
+            disableButton()
+            Toast.makeText(this, "Tie!", Toast.LENGTH_SHORT).show()
+        } else if (playerRoll == luckyNumber) {
+            disableButton()
+            Toast.makeText(this, "Player 1 won!", Toast.LENGTH_SHORT).show()
+        } else if (playerRoll2 == luckyNumber) {
+            disableButton()
+            Toast.makeText(this, "Player 2 won!", Toast.LENGTH_SHORT).show()
         }
-
-        if (playerRoll == luckyNumber) disableButton()
     }
 
     private fun disableButton() {
